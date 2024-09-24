@@ -35,6 +35,34 @@ func TestDoublyLinkedList1(t *testing.T) {
 	}
 }
 
+func TestDoublyLinkedList2(t *testing.T) {
+	testCases := []struct {
+    index int
+    value string
+	}{
+		{index: 0, value: "C"},
+		{index: 0, value: "A"},
+	}
+	dl := &DoublyLinkedList[string]{}
+	err := dl.AddElements(testCases)
+	forwardPrint:= dl.PrintForward()
+	reversePrint:= dl.PrintReverse()
+
+	if err != nil {
+		t.Errorf("Error: %v", err)
+	}
+
+	fexpected := "HEAD -> A -> NULL"
+	if forwardPrint != fexpected {
+		t.Errorf("Expected: %v,Forward print: %v", fexpected, forwardPrint)
+	}
+
+	rexpected := "NULL <- A <- HEAD"
+	if reversePrint !=  rexpected{
+		t.Errorf("Expected: %v,Reverse print: %v", rexpected, reversePrint)
+	}
+}
+
 
 
 // testCases := []struct {

@@ -28,12 +28,20 @@ type DoublyLinkedList[T any] struct {
 // Returns an error in the case that the index exceeds the list size.
 func (l *DoublyLinkedList[T]) Add(index int, v T) error {
 	if index == 0 {
-		newNode := &Node[T]{value: v, next: nil, prev: nil}
-		if l.size == 0 {
-			l.head = newNode
-			l.tail = newNode
+		var currentNode *Node[T]
+
+		if l.head == nil {
+			currentNode = &Node[T]{value: v, next: nil, prev: nil}
+		} else {
+			currentNode = l.head
+			currentNode.value = v
 		}
-		l.size=1
+
+		if l.size == 0 {
+			l.head = currentNode
+			l.tail = currentNode
+			l.size++
+		}
 	}
 	
 	return nil
