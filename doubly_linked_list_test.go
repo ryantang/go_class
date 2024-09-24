@@ -52,15 +52,33 @@ func TestDoublyLinkedList2(t *testing.T) {
 		t.Errorf("Error: %v", err)
 	}
 
-	fexpected := "HEAD -> A -> NULL"
-	if forwardPrint != fexpected {
-		t.Errorf("Expected: %v,Forward print: %v", fexpected, forwardPrint)
+	fExpected := "HEAD -> A -> NULL"
+	if forwardPrint != fExpected {
+		t.Errorf("Expected: %v,Forward print: %v", fExpected, forwardPrint)
 	}
 
-	rexpected := "NULL <- A <- HEAD"
-	if reversePrint !=  rexpected{
-		t.Errorf("Expected: %v,Reverse print: %v", rexpected, reversePrint)
+	rExpected := "NULL <- A <- HEAD"
+	if reversePrint !=  rExpected{
+		t.Errorf("Expected: %v,Reverse print: %v", rExpected, reversePrint)
 	}
+}
+
+func TestDoublyLinkedList3(t *testing.T) {
+	testCases := []struct {
+		index int
+		value string
+		}{
+			{index: 1, value: "This value should not be added"},
+		}
+		dl := &DoublyLinkedList[string]{}
+		err := dl.AddElements(testCases)
+		
+		eExpected := "index exceeds list size"
+		if err == nil {
+			t.Errorf("Expected index exceeds list size error, got nil") 
+		} else if err.Error() != eExpected {
+			t.Errorf("Expected Error: %v, Error: %v", eExpected, err)
+		}
 }
 
 

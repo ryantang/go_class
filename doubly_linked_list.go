@@ -4,11 +4,11 @@
 package dl_list
 
 import (
-	// "errors"
+	"errors"
 	"fmt"
 )
 
-// Change these boolean values to control whether you see 
+// Change these boolean values to control whether you see
 // the expected answer and/or hints.
 const showExpectedResult = false;
 const showHints = false;
@@ -27,6 +27,10 @@ type DoublyLinkedList[T any] struct {
 // Add appends the given value at the given index.
 // Returns an error in the case that the index exceeds the list size.
 func (l *DoublyLinkedList[T]) Add(index int, v T) error {
+	if l.size < index {
+		return errors.New("index exceeds list size")
+	}
+
 	if index == 0 {
 		var currentNode *Node[T]
 
@@ -43,7 +47,7 @@ func (l *DoublyLinkedList[T]) Add(index int, v T) error {
 			l.size++
 		}
 	}
-	
+
 	return nil
 }
 
