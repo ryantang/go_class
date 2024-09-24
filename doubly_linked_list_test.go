@@ -81,7 +81,125 @@ func TestDoublyLinkedList3(t *testing.T) {
 		}
 }
 
+func TestDoublyLinkedList4(t *testing.T) {
+	testCases := []struct {
+    index int
+    value string
+	}{
+		{index: 0, value: "C"},
+		{index: 0, value: "A"},
+		{index: 1, value: "B"},
+	}
+	dl := &DoublyLinkedList[string]{}
+	err := dl.AddElements(testCases)
+	forwardPrint:= dl.PrintForward()
+	reversePrint:= dl.PrintReverse()
 
+	if err != nil {
+		t.Errorf("Error: %v", err)
+	}
+
+	fExpected := "HEAD -> A -> B -> NULL"
+	if forwardPrint != fExpected {
+		t.Errorf("Expected: %v,Forward print: %v", fExpected, forwardPrint)
+	}
+
+	rExpected := "NULL <- B <- A <- HEAD"
+	if reversePrint !=  rExpected{
+		t.Errorf("Expected: %v,Reverse print: %v", rExpected, reversePrint)
+	}
+}
+
+func TestDoublyLinkedList5(t *testing.T) {
+	testCases := []struct {
+    index int
+    value string
+	}{
+		{index: 0, value: "C"},
+		{index: 0, value: "A"},
+		{index: 1, value: "B"},
+		{index: 1, value: "D"},
+	}
+	dl := &DoublyLinkedList[string]{}
+	err := dl.AddElements(testCases)
+	forwardPrint:= dl.PrintForward()
+	reversePrint:= dl.PrintReverse()
+
+	if err != nil {
+		t.Errorf("Error: %v", err)
+	}
+
+	fExpected := "HEAD -> A -> D -> NULL"
+	if forwardPrint != fExpected {
+		t.Errorf("Expected: %v,Forward print: %v", fExpected, forwardPrint)
+	}
+
+	rExpected := "NULL <- D <- A <- HEAD"
+	if reversePrint !=  rExpected{
+		t.Errorf("Expected: %v,Reverse print: %v", rExpected, reversePrint)
+	}
+}
+
+func TestDoublyLinkedList6(t *testing.T) {
+	testCases := []struct {
+    index int
+    value string
+	}{
+		{index: 0, value: "C"},
+		{index: 0, value: "A"},
+		{index: 1, value: "B"},
+		{index: 1, value: "D"},
+	}
+	dl := &DoublyLinkedList[string]{}
+	err := dl.AddElements(testCases)
+	forwardPrint:= dl.PrintForward()
+	reversePrint:= dl.PrintReverse()
+
+	if err != nil {
+		t.Errorf("Error: %v", err)
+	}
+
+	fExpected := "HEAD -> A -> D -> NULL"
+	if forwardPrint != fExpected {
+		t.Errorf("Expected: %v,Forward print: %v", fExpected, forwardPrint)
+	}
+
+	rExpected := "NULL <- D <- A <- HEAD"
+	if reversePrint !=  rExpected{
+		t.Errorf("Expected: %v,Reverse print: %v", rExpected, reversePrint)
+	}
+}
+
+func TestDoublyLinkedList7(t *testing.T) {
+	testCases := []struct {
+    index int
+    value string
+	}{
+		{index: 0, value: "C"},
+		{index: 1, value: "B"},
+		{index: 2, value: "E"},
+		{index: 3, value: "D"},
+		{index: 0, value: "A"},
+	}
+	dl := &DoublyLinkedList[string]{}
+	err := dl.AddElements(testCases)
+	forwardPrint:= dl.PrintForward()
+	reversePrint:= dl.PrintReverse()
+
+	if err != nil {
+		t.Errorf("Error: %v", err)
+	}
+
+	fExpected := "HEAD -> A -> B -> E -> D -> NULL"
+	if forwardPrint != fExpected {
+		t.Errorf("Expected: %v,Forward print: %v", fExpected, forwardPrint)
+	}
+
+	rExpected := "NULL <- D <- E <- B <- A <- HEAD"
+	if reversePrint !=  rExpected{
+		t.Errorf("Expected: %v,Reverse print: %v", rExpected, reversePrint)
+	}
+}
 
 // testCases := []struct {
 //     index int

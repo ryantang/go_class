@@ -27,28 +27,47 @@ type DoublyLinkedList[T any] struct {
 // Add appends the given value at the given index.
 // Returns an error in the case that the index exceeds the list size.
 func (l *DoublyLinkedList[T]) Add(index int, v T) error {
+
+	var currentNode *Node[T]
+
 	if l.size < index {
 		return errors.New("index exceeds list size")
 	}
 
-	if index == 0 {
-		var currentNode *Node[T]
+	if index == 0 && l.head == nil {
+		currentNode = &Node[T]{value: v, next: nil, prev: nil}
+		l.head = currentNode
+		l.tail = currentNode
+		l.size++
+	}
 
-		if l.head == nil {
-			currentNode = &Node[T]{value: v, next: nil, prev: nil}
-		} else {
-			currentNode = l.head
-			currentNode.value = v
-		}
-
-		if l.size == 0 {
-			l.head = currentNode
-			l.tail = currentNode
-			l.size++
-		}
+	//Assume we can only add to the last node of the linked list
+	//or update to an existing node within
+	if l.atPosition(index) == nil {
+		previousNode := l.atPosition(index - 1)
+		currentNode = &Node[T]{value: v, next: nil, prev: previousNode}
+		previousNode.next = currentNode
+		l.tail = currentNode
+		l.size++
+	} else {
+		currentNode = l.atPosition(index)
+		currentNode.value = v
 	}
 
 	return nil
+}
+
+func (l * DoublyLinkedList[T]) atPosition(index int) *Node[T] {
+	if index == 0 {
+		return l.head
+	}
+
+	currentNode := l.head
+	for i := 0; i < index; i++ {
+		currentNode = currentNode.next
+	}
+
+	return currentNode
 }
 
 func (l *DoublyLinkedList[T]) AddElements(elements []struct{
