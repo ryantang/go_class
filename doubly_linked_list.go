@@ -34,6 +34,16 @@ func (l *DoublyLinkedList[T]) Add(index int, v T) error {
 		return errors.New("index exceeds list size")
 	}
 
+	//head of non-empty list
+	if index == 0 && l.head != nil {
+		nextNode := l.head
+		currentNode = &Node[T]{value: v, next: nextNode, prev: nil}
+		nextNode.prev = currentNode
+		l.head = currentNode
+		l.size++
+	}
+
+	//empty list
 	if index == 0 && l.head == nil {
 		currentNode = &Node[T]{value: v, next: nil, prev: nil}
 		l.head = currentNode
@@ -41,19 +51,24 @@ func (l *DoublyLinkedList[T]) Add(index int, v T) error {
 		l.size++
 	}
 
-	//Assume we can only add to the last node of the linked list
-	//or update to an existing node within
-	if l.atPosition(index) == nil {
+	//middle	
+	if index > 0 && index < l.size {
+		nextNode := l.atPosition(index)
+		previousNode := l.atPosition(index - 1)
+		currentNode = &Node[T]{value: v, next: nextNode, prev: previousNode}
+		previousNode.next = currentNode
+		nextNode.prev = currentNode
+		l.size++
+	}
+
+	//tail
+	if index > 0 && index == l.size {
 		previousNode := l.atPosition(index - 1)
 		currentNode = &Node[T]{value: v, next: nil, prev: previousNode}
 		previousNode.next = currentNode
 		l.tail = currentNode
 		l.size++
-	} else {
-		currentNode = l.atPosition(index)
-		currentNode.value = v
 	}
-
 	return nil
 }
 
